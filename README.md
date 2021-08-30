@@ -4,6 +4,8 @@ The project consist of mainly 2 phases; data extraction from pdf's and text visu
 Sustainable Development Goals (SDGs) have been introduced by the UN. At present, companies as well as investors pay attention to sustainable investments. 
 This program is coded in order to capture the context that the comapnies are discussing in their sustainability/ annual reports addressing the SDGs. In order to fetch the sentences, I have used a pre-compiled keyword list which has been provided by United Nations Sustainable Development Solutions Network http://ap-unsdsn.org/wp-content/uploads/2017/04/Compiled-Keywords-for-SDG-Mapping_Final_17-05-10.xlsx
 
+I have used the 2019 Sustainability report of Dialog PLC for the demo purposes. You can download the report via https://www.dialog.lk/dialogdocroot/content/pdf/sustainability_reports/sustainability-report-2019.pdf
+
 The python libraries used are;
 PyPDF2, textract, re, pandas, matplotlib, NLTK, WordCloud
 
