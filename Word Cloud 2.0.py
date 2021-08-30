@@ -15,12 +15,13 @@ from wordcloud import WordCloud, STOPWORDS
 import os
 
 #Import keywords
-keywords = pd.read_excel('location for the keywords file xlsx')
+path = os.getcwd()+ '\keywords.xlsx'
+keywords = pd.read_excel(path)
 keywords = keywords.apply(lambda x: x.astype(str).str.lower())
 terms = keywords["Terms"].tolist()
 
 
-file_in = 'location for the pdf file'
+file_in = os.getcwd()+ '\Dialog sustainability-report-2019.pdf'
 file_split = file_in.split(".")
 pdfFileObj = open(file_in,'rb')
 pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
@@ -84,9 +85,3 @@ else:
     #plt.show()
     path_out = os.path.join(file_split[0] + ".png")
     wordcloud.to_file(path_out)
-        
-
-print ("Process Completed!")
-
-
-
