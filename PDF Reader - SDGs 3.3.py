@@ -10,9 +10,11 @@ import PyPDF2
 import textract
 import re
 import pandas as pd
+import os
 
 #Import keywords
-keywords = pd.read_excel(r'F:\Python Projects\PDF Scraping\keywords.xlsx')
+path = os.getcwd()+ '\keywords.xlsx'
+keywords = pd.read_excel(path)
 keywords = keywords.apply(lambda x: x.astype(str).str.lower())
 l1 = keywords["SDG 1"]
 l2 = keywords["SDG 2"]
@@ -33,7 +35,8 @@ l16 = keywords["SDG 16"]
 l17 = keywords["SDG 17"]
 
 #Import sustainability report
-filename = 'F:\Python Projects\PDF Scraping\Reports\InternationalPaper_gc-report.pdf' 
+#For the demonstration purposes, I have used the Sustainability report of Dialog - 2019
+filename = os.getcwd()+ '\Dialog sustainability-report-2019.pdf' 
 #Read pdf
 pdfFileObj = open(filename,'rb')
 pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
@@ -93,18 +96,19 @@ sent_append(l17,17)
                     
 con_l1 = [j for i in sent for j in i]
 finaldf = pd.DataFrame(list(zip(con_l1, sdg)),columns=['Sentence','SDG'])
-    
+
+#Removing the commonly found nuisance characters
 finaldf= finaldf.replace({'\n':''}, regex=True)
 finaldf= finaldf.replace({'\Ł':''}, regex=True)
 finaldf= finaldf.replace({'ﬂŠKerry':''}, regex=True)
 finaldf= finaldf.replace({'ﬂŠFred':''}, regex=True)
 finaldf.drop_duplicates(keep='first', inplace=True)
-    
-path = r'F:\Python Projects\PDF Scraping\Reports\Scraped\InternationalPaper_gc-report.xlsx'
+
+#Writing to excel
+path = os.getcwd()+ '\Dialog SDGs.xlsx'
 writer = pd.ExcelWriter(path, engine = 'xlsxwriter')
 finaldf.to_excel(writer, sheet_name = 'List',index = None)
 writer.save()
 writer.close()  
-print("Almost done.")
 
 
